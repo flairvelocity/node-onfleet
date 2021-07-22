@@ -100,6 +100,7 @@ describe('Initial testing', () => {
 
 describe('HTTP Request testing', () => {
   const onfleet = new Onfleet(apiKey);
+  onfleet.setDebug(true)
   beforeEach(() => {
     // We use the admin endpoint to test list()
     nock(baseUrl)
@@ -221,6 +222,14 @@ describe('HTTP Request testing', () => {
         // Expect a status code being thrown
         expect(typeof res).to.equal('number');
         assert.equal(res, 200);
+      });
+  });
+  it('Update a container', () => {
+    return onfleet.containers.updateWorker('Mdfs*NDZ1*lMU0abFXAT82lM', {tasks:[]})
+      .then((res) => {
+        // Expect a status code being thrown
+        expect(typeof res).to.equal('object');
+        assert.equal(res.id, 'Mdfs*NDZ1*lMU0abFXAT82lM');
       });
   });
 });
